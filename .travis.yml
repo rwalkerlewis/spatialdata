@@ -36,6 +36,7 @@ addons:
       - proj-bin
       - proj-data
       - libproj-dev
+      - libpcre3-dev
 
 # Dependencies installed as packages on OS X
 before_install:
