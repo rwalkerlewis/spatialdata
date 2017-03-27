@@ -2,22 +2,18 @@
 
 language: cpp
 
+# Linux
+sudo: false
+dist: precise
+
 matrix:
   include:
     - os: linux
-      dist: precise
-      env:
-        - LD_LIBRARY_PATH="${DEPS_DIR}/lib:${TARGET_DIR}/lib:${LD_LIBRARY_PATH}"
-	- MAKE_THREADS=$(nproc)
+      env: LD_LIBRARY_PATH="${DEPS_DIR}/lib:${TARGET_DIR}/lib:${LD_LIBRARY_PATH}"
       compiler: gcc
-      sudo: false
     - os: linux
-      dist: precise
-      env:
-        - LD_LIBRARY_PATH="${DEPS_DIR}/lib:${TARGET_DIR}/lib:${LD_LIBRARY_PATH}"
-	- MAKE_THREADS=$(nproc)
+      env: LD_LIBRARY_PATH="${DEPS_DIR}/lib:${TARGET_DIR}/lib:${LD_LIBRARY_PATH}"
       compiler: clang
-      sudo: false
     - os: osx
       env: MAKE_THREADS=2
       compiler: clang
@@ -55,6 +51,7 @@ script:
 
 env:
   global:
+    - MAKE_THREADS=2
     - PYTHON_VERSION="2.7"
     - DEPS_DIR="${TRAVIS_BUILD_DIR}/dist/deps"
     - TARGET_DIR="${TRAVIS_BUILD_DIR}/dist/target"
