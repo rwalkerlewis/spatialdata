@@ -2,20 +2,24 @@
 
 language: cpp
 
-# :TODO: @brad Add osx build (need homebrew packages)..
 matrix:
   include:
     - os: linux
       dist: precise
-      env: LD_LIBRARY_PATH="${DEPS_DIR}/lib:${TARGET_DIR}/lib:${LD_LIBRARY_PATH}"
+      env:
+        - LD_LIBRARY_PATH="${DEPS_DIR}/lib:${TARGET_DIR}/lib:${LD_LIBRARY_PATH}"
+	- MAKE_THREADS=$(nproc)
       compiler: gcc
       sudo: false
     - os: linux
       dist: precise
-      env: LD_LIBRARY_PATH="${DEPS_DIR}/lib:${TARGET_DIR}/lib:${LD_LIBRARY_PATH}"
+      env:
+        - LD_LIBRARY_PATH="${DEPS_DIR}/lib:${TARGET_DIR}/lib:${LD_LIBRARY_PATH}"
+	- MAKE_THREADS=$(nproc)
       compiler: clang
       sudo: false
     - os: osx
+      env: MAKE_THREADS=2
       compiler: clang
 
 
@@ -27,7 +31,6 @@ git:
 addons:
   apt:
     packages:
-      - cmake
       - python-setuptools
       - libcppunit-dev
       - libopenmpi-dev
@@ -41,7 +44,7 @@ addons:
 # Dependencies installed as packages on OS X
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install proj cppunit mpich pcre; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install proj cppunit mpich ; fi
 
 # Build dependencies. Use Proj4 header file to check to see if dependencies are cached.
 install:
@@ -53,7 +56,6 @@ script:
 
 env:
   global:
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then MAKE_THREADS=2 ; else MAKE_THEADDS=$(nproc); fi
     - PYTHON_VERSION="2.7"
     - DEPS_DIR="${TRAVIS_BUILD_DIR}/dist/deps"
     - TARGET_DIR="${TRAVIS_BUILD_DIR}/dist/target"
