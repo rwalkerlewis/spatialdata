@@ -16,7 +16,7 @@ matrix:
       compiler: clang
     - os: osx
       env: MAKE_THREADS=2
-      compiler: clang
+      compiler: gcc
 
 
 # Limit number of commits in cloning (but keep enough so that 'git describe' works)
@@ -39,7 +39,7 @@ addons:
 # Dependencies installed as packages on OS X
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install proj cppunit mpich ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install proj cppunit mpich python-dev ; fi
 
 # Build dependencies. Use Proj4 header file to check to see if dependencies are cached.
 install:
