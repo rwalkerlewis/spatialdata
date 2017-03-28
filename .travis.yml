@@ -14,9 +14,10 @@ matrix:
     - os: linux
       env: LD_LIBRARY_PATH="${DEPS_DIR}/lib:${TARGET_DIR}/lib:${LD_LIBRARY_PATH}"
       compiler: clang
-    - os: osx
-      env: MAKE_THREADS=2
-      compiler: gcc
+
+#    - os: osx
+#      env: MAKE_THREADS=2
+#      compiler: gcc
 
 
 # Limit number of commits in cloning (but keep enough so that 'git describe' works)
